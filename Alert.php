@@ -31,7 +31,7 @@ class Alert{
     * @param string $type  contains the type for the alert
     * @return boolean
     */
-    public static function setAlert($type="info"){
+    public static function set($type="info", int $time=10000){
         $data="";
         $message = implode("<br />", self::$errors);
         if($type=="info"){
@@ -50,7 +50,7 @@ class Alert{
             $data.="  $('.alert-danger').show();\n";
             $data.="  $('.alert_text').html('$message');\n";
         }
-        $data.="setTimeout(\"$('.alert').hide();\",10000);\n";
+        $data.="setTimeout(\"$('.alert').hide();\",{$time});\n";
         $_SESSION['data_alert'] = $data;
         return true;
     }
@@ -62,9 +62,9 @@ class Alert{
     *
     * @return html data
     */
-    public static function printAlerts(){
+    public static function print(){
         $data = "<div class=\"alert alert-info\" role=\"alert\"><span class=\"alert_text\"></span></div>\n";
-        $data .= "<div class=\"alert alert-success\" role=\"alert\"><span class=\"alert_text\"></span></div>\n";
+        $data .= "<div class=\"verticalcenter alert alert-success\" role=\"alert\"><span class=\"alert_text\"></span></div>\n";
         $data .= "<div class=\"alert alert-warning\" role=\"alert\"><span class=\"alert_text\"></span></div>\n";
         $data .= "<div class=\"alert alert-danger\" role=\"alert\"><span class=\"alert_text\"></span></div>\n";
 		if (!empty($_SESSION['data_alert'])) {
